@@ -8,8 +8,6 @@ async function start() {
   console.log("Welcome to task tracker!");
   const input = await askQuestion(rl, "Write command: ");
 
-  console.log(`Você digitou: ${input}`);
-
   const [command, ...args] = input.split(" ");
   executeCommand(command, args);
 

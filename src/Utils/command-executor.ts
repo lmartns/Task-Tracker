@@ -1,5 +1,5 @@
 import { taskInstructions } from "../config/config";
-import { Commands } from "../enums/Commands";
+import { Commands } from "../enums/commands";
 
 export function executeCommand(command: string, args: string[]): void {
   switch (command) {
