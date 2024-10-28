@@ -9,4 +9,5 @@ export enum Commands {
   LIST_TODO = "list-todo",
   LIST_IN_PROGRESS = "list-in-progress",
   HELP = "help",
+  EXIT = "exit",
 }

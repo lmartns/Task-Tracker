@@ -33,9 +33,36 @@ export class TaskStorageService {
       console.log("Tasks: ");
       tasks.forEach((task, index) => {
         console.log(
-          `${index + 1}. ${task.id} [${task.status}] ${
-            task.description
-          } (Created at: ${task.createdAt})`
+          `
+            ┌─────────────────────────────────────
+            │ 🆔 ID          : ${task.id}
+            │ 📋 Description : ${task.description}
+            │ 📅 Created At  : ${new Date(task.createdAt).toLocaleString()}
+            │ 📌 Status      : ${task.status.toUpperCase()}
+            └─────────────────────────────────────
+          `
+        );
+      });
+    }
+  }
+
+  static listTasksByStatus(status: "todo" | "in-progress" | "done"): void {
+    const tasks = this.readTasks();
+    const filteredTasks = tasks.filter((task) => task.status === status);
+    if (filteredTasks.length === 0) {
+      console.log(`No tasks with status "${status}" available`);
+    } else {
+      console.log(`Tasks with status "${status}":`);
+      filteredTasks.forEach((task, index) => {
+        console.log(
+          `
+            ┌─────────────────────────────────────
+            │ 🆔 ID          : ${task.id}
+            │ 📋 Description : ${task.description}
+            │ 📅 Created At  : ${new Date(task.createdAt).toLocaleString()}
+            │ 📌 Status      : ${task.status.toUpperCase()}
+            └─────────────────────────────────────
+          `
         );
       });
     }
@@ -58,7 +85,7 @@ export class TaskStorageService {
     }
   }
 
-  static deleteTask(taskId: UUID): void {
+  static deleteTask(taskId: string): void {
     const tasks = this.readTasks();
     const updateTask = tasks.filter((t) => t.id !== taskId);
     this.writeTasks(updateTask);

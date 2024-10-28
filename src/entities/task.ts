@@ -1,8 +1,6 @@
-import { UUID } from "crypto";
-
 export class Task {
   constructor(
-    public id: UUID,
+    public id: string,
     public description: string,
     public status: "todo" | "in-progress" | "done",
     public createdAt: Date,

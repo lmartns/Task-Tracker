@@ -1,37 +1,29 @@
-import * as readline from "readline";
 import { askQuestion } from "./Utils/input-scan";
-import { rl, taskInstructions } from "./config/config";
+import { rl } from "./config/config";
 import { executeCommand } from "./Utils/command-executor";
 import { ensureJSONExists } from "./Utils/file-utils";
-import { TaskStorageService } from "./services/task-storage-service";
+import { Commands } from "./enums/commands";
 
 ensureJSONExists();
 
-let id = crypto.randomUUID();
+let isFirstRun = true;
 
-TaskStorageService.listTasks();
+async function start() {
+  if (isFirstRun) {
+    console.log("Welcome to task tracker!");
+    isFirstRun = false;
+  }
 
-// try {
-//   TaskStorageService.addTask({
-//     id: id,
-//     description: "Example task",
-//     status: "todo",
-//     createdAt: new Date(),
-//     updateAt: new Date(),
-//   });
-//   console.log("Task added successfully.");
-// } catch (error) {
-//   console.error("Error adding task:", error);
-// }
+  const input = await askQuestion(rl, "Type command: ");
 
-// async function start() {
-//   console.log("Welcome to task tracker!");
-//   const input = await askQuestion(rl, "Write command: ");
+  const [command, ...args] = input.split(" ");
+  await executeCommand(command, args);
 
-//   const [command, ...args] = input.split(" ");
-//   executeCommand(command, args);
+  if (command !== Commands.EXIT) {
+    start();
+  } else {
+    rl.close();
+  }
+}
 
-//   rl.close();
-// }
-
-// start();
+start();

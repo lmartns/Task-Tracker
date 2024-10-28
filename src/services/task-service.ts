@@ -3,7 +3,7 @@ import { Task } from "../entities/task";
 import { TaskStorageService } from "./task-storage-service";
 
 export class TaskService {
-  addTask(description: string): Task {
+  static addTask(description: string): Task {
     const tasks = TaskStorageService.readTasks();
     const id = crypto.randomUUID();
     const newTask = new Task(id, description, "todo", new Date(), new Date());
@@ -11,22 +11,24 @@ export class TaskService {
     return newTask;
   }
 
-  updateTask(
-    id: UUID,
+  static updateTask(
+    id: string,
     newDescription: string,
     newStatus: "todo" | "in-progress" | "done"
   ) {
     const tasks = TaskStorageService.readTasks();
     const task = tasks.find((t) => t.id === id);
     if (task) {
-      task.description = newDescription;
+      if (newDescription) task.description = newDescription;
       task.status = newStatus;
       task.updateAt = new Date();
       TaskStorageService.updateTask(task);
+    } else {
+      console.log(`Task with ID ${id} not found.`);
     }
   }
 
-  deleteTask(id: UUID): void {
+  static deleteTask(id: string): void {
     TaskStorageService.deleteTask(id);
   }
 }

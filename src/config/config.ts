@@ -8,21 +8,50 @@ export const rl = readline.createInterface({
   output: process.stdout,
 });
 
-export const taskInstructions = `# Adding a new task
-1 - task-cli add "Buy groceries"
+export const taskInstructions = `
+=========================
+   Task Tracker CLI Guide
+=========================
 
-# Updating and deleting tasks
-2 - task-cli update 1 "Buy groceries and cook dinner"
-3 - task-cli delete 1
+Manage your tasks with the following commands. After entering a command, follow the prompts for additional details.
 
-# Marking a task as in progress or done
-4 - task-cli mark-in-progress 1
-5 - task-cli mark-done 1
+Commands:
+1. add "Task description"
+   - Add a new task with a given description.
 
-# Listing all tasks
-6 - task-cli list
+2. update <task-id> "New task description"
+   - Update the description of an existing task by its ID.
 
-# Listing tasks by status
-7 - task-cli list done
-8 - task-cli list todo
-9 - task-cli list in-progress`;
+3. delete <task-id>
+   - Remove a task by its ID.
+
+4. mark-in-progress <task-id>
+   - Set the status of a task to "in-progress" by its ID.
+
+5. mark-done <task-id>
+   - Mark a task as "done" by its ID.
+
+6. list
+   - Display all tasks.
+
+7. list-done
+   - Show tasks that are marked as "done".
+
+8. list-todo
+   - Show tasks that are marked as "todo".
+
+9. list-in-progress
+   - Show tasks that are "in-progress".
+
+10. help
+   - Display this help guide.
+
+11. exit
+   - Close the application.
+
+Examples:
+> add "Buy groceries"
+> update 1 "Buy groceries and cook dinner"
+> mark-done 1
+> list
+`;
