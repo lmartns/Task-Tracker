@@ -1,4 +1,7 @@
 import * as readline from "readline";
+import * as path from "path";
+
+export const JSON_FILE_PATH = path.join(__dirname, "..", "..", "tasks.json");
 
 export const rl = readline.createInterface({
   input: process.stdin,
